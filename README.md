@@ -34,6 +34,8 @@ SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="aa:bb:cc:dd:ee:ff", NAME="wlan0
 
 SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan1"
 
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan2"
+
 # Set static IP
 
 allow-hotplug wlan0
@@ -169,11 +171,11 @@ gateway 192.168.0.1
 
 13. sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
 
-14. sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
+14. sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE  
 
-15. sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
+15. sudo iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
 
-16. sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
+16. sudo iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
 
 17. sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
@@ -191,6 +193,5 @@ gateway 192.168.0.1
 
 sudo iptables -A PREROUTING -t nat -p tcp -d [receive IP] -dport [receive port] -j DNAT --to [next IP:next port]
 
-sudo iptables -A FORWARD -p tcp --dport -d [??] -j ACCEPT
+sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
-sudo iptables -A POSTROUTING -t tcp nat -s [??] -o wlan[?] -j MASQUERADE
