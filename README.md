@@ -169,5 +169,7 @@ add 'usbhid.mousepoll=0'
 # ip forwarding
 
 sudo iptables -A PREROUTING -t nat -p tcp -d [receive IP] -dport [receive port] -j DNAT --to [next IP:next port]
+
 sudo iptables -A FORWARD -p tcp --dport -d [??] -j ACCEPT
+
 sudo iptables -A POSTROUTING -t tcp nat -s [??] -o wlan[?] -j MASQUERADE
