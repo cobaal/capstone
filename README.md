@@ -26,6 +26,17 @@ add 'usbhid.mousepoll=0'
 
     - display : sudo ./LCD32-show
 
+# ARP Table
+
+sudo nano /etc/udev/rules.d/10-network.rules
+
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="aa:bb:cc:dd:ee:ff", NAME="wlan0"
+
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan1"
+
+
+
+출처: http://skylit.tistory.com/193 [초코아빠*]
 
 # AP mode
 1. sudo apt-get install dnsmasq hostapd
