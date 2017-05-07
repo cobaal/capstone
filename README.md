@@ -14,13 +14,17 @@ sudo nano /boot/cmdline.txt
 add 'usbhid.mousepoll=0'
 
 5. pi 3.5inch display install 
+
 http://bbangpan.tistory.com/82
 
-/home/pi/Downloads 
-cd LCD-show
 
-hdmi : sudo ./LCD-hdmi
-display : sudo ./LCD32-show
+   - /home/pi/Downloads 
+
+   - cd LCD-show 
+
+   - hdmi : sudo ./LCD-hdmi
+
+   - display : sudo ./LCD32-show
 
 
 # AP mode
