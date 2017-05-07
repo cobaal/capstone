@@ -15,16 +15,16 @@ add 'usbhid.mousepoll=0'
 
 5. pi 3.5inch display install 
 
-http://bbangpan.tistory.com/82
+    - http://bbangpan.tistory.com/82
 
 
-   - /home/pi/Downloads 
+    - /home/pi/Downloads 
 
-   - cd LCD-show 
+    - cd LCD-show 
 
-   - hdmi : sudo ./LCD-hdmi
+    - hdmi : sudo ./LCD-hdmi
 
-   - display : sudo ./LCD32-show
+    - display : sudo ./LCD32-show
 
 
 # AP mode
