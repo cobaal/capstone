@@ -48,11 +48,6 @@ netmask 255.255.255.0
 
 gateway 192.168.0.1
 
-
-출처: http://wemakers.tistory.com/48 [We Makers !]
-
-출처: http://skylit.tistory.com/193 [초코아빠*]
-
 # AP mode
 1. sudo apt-get install dnsmasq hostapd
 
