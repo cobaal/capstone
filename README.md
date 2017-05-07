@@ -191,7 +191,7 @@ gateway 192.168.0.1
 
 # ip forwarding
 
-sudo iptables -A PREROUTING -t nat -p tcp -d [receive IP] -dport [receive port] -j DNAT --to [next IP:next port]
+sudo iptables -A PREROUTING -t nat -p tcp -d [receive IP] --dport [receive port] -j DNAT --to [next IP:next port]
 
 sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
