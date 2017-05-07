@@ -34,7 +34,22 @@ SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="aa:bb:cc:dd:ee:ff", NAME="wlan0
 
 SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan1"
 
+# Set static IP
 
+allow-hotplug wlan0
+
+iface wlan0 inet static
+
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+    
+address 192.168.0.174
+
+netmask 255.255.255.0
+
+gateway 192.168.0.1
+
+
+출처: http://wemakers.tistory.com/48 [We Makers !]
 
 출처: http://skylit.tistory.com/193 [초코아빠*]
 
