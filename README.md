@@ -1,4 +1,29 @@
-# capstone
+# install 
+1. korean font
+sudo apt-get install ibus ibus-hangul ttf-unfonts-core
+
+2. keyboard layout 
+sudo raspi-config 
+105 layout
+
+3. locale
+asia > seoul
+
+4. mouse cursor slow problem
+sudo nano /boot/cmdline.txt
+add 'usbhid.mousepoll=0'
+
+5. pi 3.5inch display install 
+http://bbangpan.tistory.com/82
+
+/home/pi/Downloads 
+cd LCD-show
+
+hdmi : sudo ./LCD-hdmi
+display : sudo ./LCD32-show
+
+
+# AP mode
 1. sudo apt-get install dnsmasq hostapd
 
 2. sudo nano /etc/dhcpcd.conf
