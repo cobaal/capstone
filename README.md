@@ -195,3 +195,6 @@ sudo iptables -A PREROUTING -t nat -p tcp -d [receive IP] --dport [receive port]
 
 sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
+sudo iptables -t nat -F 
+
+
