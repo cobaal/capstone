@@ -24,7 +24,7 @@ add 'usbhid.mousepoll=0'
 
     - hdmi : sudo ./LCD-hdmi
 
-    - display : sudo ./LCD32-show
+    - display : sudo ./LCD35-show
 
 # ARP Table
 
