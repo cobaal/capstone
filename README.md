@@ -197,4 +197,14 @@ sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
 sudo iptables -t nat -F 
 
+# realtek RTL8812AU
+
+sudo apt-get install gcc-4.7
+
+sudo apt-get install dkms
+
+uname -a
+
+https://www.niksula.hut.fi/~mhiienka/Rpi/linux-headers-rpi/
+
 
