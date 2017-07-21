@@ -207,4 +207,62 @@ uname -a
 
 https://www.niksula.hut.fi/~mhiienka/Rpi/linux-headers-rpi/
 
+sudo dpkg -i linux-headers-4.1.7-v7+_4.1.7-v7+-2_armhf.deb
 
+git clone https://github.com/gnab/rtl8812au.git
+
+cd rtl8812au
+
+...(생략)...
+
+
+
+CONFIG_MP_INCLUDED = n
+
+CONFIG_POWER_SAVING = n
+
+CONFIG_USB_AUTOSUSPEND = n
+
+CONFIG_HW_PWRP_DETECTION = n
+
+CONFIG_WIFI_TEST = n
+
+CONFIG_BT_COEXIST = n
+
+CONFIG_RTL8192CU_REDEFINE_1X1 = n
+
+CONFIG_INTEL_WIDI = n
+
+CONFIG_WAPI_SUPPORT = n
+
+CONFIG_EFUSE_CONFIG_FILE = n
+
+CONFIG_EXT_CLK = n
+
+CONFIG_FTP_PROTECT = n
+
+CONFIG_WOWLAN = n
+
+
+...(중략)...
+
+
+
+CONFIG_PLATFORM_I386_PC = n
+
+CONFIG_PLATFORM_ANDROID_X86 = n
+
+CONFIG_PLATFORM_JB_X86 = n
+
+CONFIG_PLATFORM_ARM_S3C2K4 = n
+
+CONFIG_PLATFORM_ARM_PXA2XX = n
+
+CONFIG_PLATFORM_ARM_S3C6K4 = n
+
+CONFIG_PLATFORM_ARM_RPI = y
+
+CONFIG_PLATFORM_MIPS_RMI = n
+
+
+...(생략)...
