@@ -199,58 +199,58 @@ sudo iptables -t nat -F
 
 # realtek RTL8812AU
 
-//install necessary software
+1. install necessary software
 
-1. sudo apt-get update
+    - sudo apt-get update
 
-2. sudo apt-get install bc git
+    - sudo apt-get install bc git
 
-3. sudo apt-get install libncurses5-dev
-
-
-//download rpi kernel source. takes some minutes
-
-4. sudo wget https://raw.githubusercontent.com/notro/rpi-source/master/rpi-source -O /usr/bin/rpi-source
-
-5. sudo chmod 755 /usr/bin/rpi-source
-
-6. rpi-source -q --tag-update
-
-7. rpi-source
+    - sudo apt-get install libncurses5-dev
 
 
-//download the rtl8812au kernel driver and complie it. takes some minutes
+2. download rpi kernel source. takes some minutes
 
-8. git clone https://github.com/gnab/rtl8812au.git
+    - sudo wget https://raw.githubusercontent.com/notro/rpi-source/master/rpi-source -O /usr/bin/rpi-source
 
-9. cd rtl8812au
+    - sudo chmod 755 /usr/bin/rpi-source
 
-10. sed -i 's/CONFIG_PLATFORM_I386_PC = y/CONFIG_PLATFORM_I386_PC = n/g' Makefile
+    - rpi-source -q --tag-update
 
-11. sed -i 's/CONFIG_PLATFORM_ARM_RPI = n/CONFIG_PLATFORM_ARM_RPI = y/g' Makefile
-
-12. make
+    - rpi-source
 
 
-//copy the driver and use it
+3. download the rtl8812au kernel driver and complie it. takes some minutes
 
-13. sudo insmod 8812au.ko
+    - git clone https://github.com/gnab/rtl8812au.git
 
-14. sudo cp 8812au.ko /lib/modules/$(uname -r)/kernel/drivers/net/wireless
+    - cd rtl8812au
 
-15. sudo depmod
+    - sed -i 's/CONFIG_PLATFORM_I386_PC = y/CONFIG_PLATFORM_I386_PC = n/g' Makefile
 
+    - sed -i 's/CONFIG_PLATFORM_ARM_RPI = n/CONFIG_PLATFORM_ARM_RPI = y/g' Makefile
 
-//disable the integrated wifi chip
-
-16. sudo nano /etc/modprobe.d/raspi-blacklist.conf
-
-17. (add) blacklist brcmfmac
-
-18. (add) blacklist brcmutil
+    - make
 
 
-19. reboot
+4. copy the driver and use it
+
+    - sudo insmod 8812au.ko
+
+    - sudo cp 8812au.ko /lib/modules/$(uname -r)/kernel/drivers/net/wireless
+
+    - sudo depmod
+
+
+5. disable the integrated wifi chip
+
+    - sudo nano /etc/modprobe.d/raspi-blacklist.conf
+
+    - (add) blacklist brcmfmac
+
+    - (add) blacklist brcmutil
+
+
+6. reboot
 
 https://www.max2play.com/en/forums/topic/howto-raspberry-pi-3-realtek-802-11ac-rtl8812au/
 
