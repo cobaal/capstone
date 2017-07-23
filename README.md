@@ -200,33 +200,58 @@ sudo iptables -t nat -F
 # realtek RTL8812AU
 
 //install necessary software
+
 sudo apt-get update
+
 sudo apt-get install bc git
+
 sudo apt-get install libncurses5-dev
 
+
 //download rpi kernel source. takes some minutes
+
 sudo wget https://raw.githubusercontent.com/notro/rpi-source/master/rpi-source -O /usr/bin/rpi-source
+
 sudo chmod 755 /usr/bin/rpi-source
+
 rpi-source -q --tag-update
+
 rpi-source
 
+
 //download the rtl8812au kernel driver and complie it. takes some minutes
+
 git clone https://github.com/gnab/rtl8812au.git
+
 cd rtl8812au
+
 sed -i 's/CONFIG_PLATFORM_I386_PC = y/CONFIG_PLATFORM_I386_PC = n/g' Makefile
+
 sed -i 's/CONFIG_PLATFORM_ARM_RPI = n/CONFIG_PLATFORM_ARM_RPI = y/g' Makefile
+
 make
 
+
 //copy the driver and use it
+
 sudo insmod 8812au.ko
+
 sudo cp 8812au.ko /lib/modules/$(uname -r)/kernel/drivers/net/wireless
+
 sudo depmod
 
+
 //disable the integrated wifi chip
+
 sudo nano /etc/modprobe.d/raspi-blacklist.conf
+
 (add) blacklist brcmfmac
+
 (add) blacklist brcmutil
 
+
 reboot.
+
 https://www.max2play.com/en/forums/topic/howto-raspberry-pi-3-realtek-802-11ac-rtl8812au/
+
 https://layereight.de/raspberry-pi/2016/08/25/raspbian-rtl8812au.html
