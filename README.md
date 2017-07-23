@@ -199,70 +199,34 @@ sudo iptables -t nat -F
 
 # realtek RTL8812AU
 
-sudo apt-get install gcc-4.7
+//install necessary software
+sudo apt-get update
+sudo apt-get install bc git
+sudo apt-get install libncurses5-dev
 
-sudo apt-get install dkms
+//download rpi kernel source. takes some minutes
+sudo wget https://raw.githubusercontent.com/notro/rpi-source/master/rpi-source -O /usr/bin/rpi-source
+sudo chmod 755 /usr/bin/rpi-source
+rpi-source -q --tag-update
+rpi-source
 
-uname -a
-
-https://www.niksula.hut.fi/~mhiienka/Rpi/linux-headers-rpi/
-
-sudo dpkg -i linux-headers-4.1.7-v7+_4.1.7-v7+-2_armhf.deb
-
+//download the rtl8812au kernel driver and complie it. takes some minutes
 git clone https://github.com/gnab/rtl8812au.git
-
 cd rtl8812au
+sed -i 's/CONFIG_PLATFORM_I386_PC = y/CONFIG_PLATFORM_I386_PC = n/g' Makefile
+sed -i 's/CONFIG_PLATFORM_ARM_RPI = n/CONFIG_PLATFORM_ARM_RPI = y/g' Makefile
+make
 
-...(생략)...
+//copy the driver and use it
+sudo insmod 8812au.ko
+sudo cp 8812au.ko /lib/modules/$(uname -r)/kernel/drivers/net/wireless
+sudo depmod
 
+//disable the integrated wifi chip
+sudo nano /etc/modprobe.d/raspi-blacklist.conf
+(add) blacklist brcmfmac
+(add) blacklist brcmutil
 
-
-CONFIG_MP_INCLUDED = n
-
-CONFIG_POWER_SAVING = n
-
-CONFIG_USB_AUTOSUSPEND = n
-
-CONFIG_HW_PWRP_DETECTION = n
-
-CONFIG_WIFI_TEST = n
-
-CONFIG_BT_COEXIST = n
-
-CONFIG_RTL8192CU_REDEFINE_1X1 = n
-
-CONFIG_INTEL_WIDI = n
-
-CONFIG_WAPI_SUPPORT = n
-
-CONFIG_EFUSE_CONFIG_FILE = n
-
-CONFIG_EXT_CLK = n
-
-CONFIG_FTP_PROTECT = n
-
-CONFIG_WOWLAN = n
-
-
-...(중략)...
-
-
-
-CONFIG_PLATFORM_I386_PC = n
-
-CONFIG_PLATFORM_ANDROID_X86 = n
-
-CONFIG_PLATFORM_JB_X86 = n
-
-CONFIG_PLATFORM_ARM_S3C2K4 = n
-
-CONFIG_PLATFORM_ARM_PXA2XX = n
-
-CONFIG_PLATFORM_ARM_S3C6K4 = n
-
-CONFIG_PLATFORM_ARM_RPI = y
-
-CONFIG_PLATFORM_MIPS_RMI = n
-
-
-...(생략)...
+reboot.
+https://www.max2play.com/en/forums/topic/howto-raspberry-pi-3-realtek-802-11ac-rtl8812au/
+https://layereight.de/raspberry-pi/2016/08/25/raspbian-rtl8812au.html
