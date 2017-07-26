@@ -26,7 +26,7 @@ add 'usbhid.mousepoll=0'
 
     - display : sudo ./LCD35-show
 
-# ARP Table
+# wlan 
 
 sudo nano /etc/udev/rules.d/10-network.rules
 
