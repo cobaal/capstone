@@ -230,6 +230,15 @@ sudo iptables -t nat -F
     - sed -i 's/CONFIG_PLATFORM_ARM_RPI = n/CONFIG_PLATFORM_ARM_RPI = y/g' Makefile
 
     - make
+    
+    - sudo make install
+    
+    - sudo modprobe 8812au
+    
+    - reboot
+
+
+출처: http://skylit.tistory.com/203 [초코아빠*]
 
 
 4. copy the driver and use it
