@@ -236,10 +236,60 @@ sudo iptables -t nat -F
     - sudo modprobe 8812au
     
     - reboot
+    
+5. pactch hostapd
 
+    - Download 2.6.x version from here : http://w1.fi/hostapd/
 
-출처: http://skylit.tistory.com/203 [초코아빠*]
+    - rtl pactch file : https://github.com/pritambaral/hostapd-rtl871xdrv/archive/master.zip
+    
+    - unzip hostapd-2.6.zip and hostapd-rtl871xdrv-master.zip
+    
+    - sudo cp hostapd-rtl871xdrv-master/* hostapd-2.6/
+    
+    - sudo cp hostapd-rtl871xdrv-master/.c* hostapd-2.6/
+    
+    - cd hostapd-2.6
+    
+    - patch -Np1 -i rtlxdrv.patch
+    
+    - cp .config ./hostapd/
 
+    - cd hostapd
+    
+    - make
+    
+    - sudo make install
+    
+    - sudo cp /usr/sbin/hostapd  /usr/sbin/hostapd-old
+    
+    - sudo cp /usr/sbin/hostapd_cli /usr/sbin/hostapd_cli-old
+
+    - sudo cp /usr/local/bin/hostapd /usr/sbin/hostapd
+
+    - sudo cp /usr/local/bin/hostapd_cli /usr/sbin/hostapd_cl
+    
+    - reboot
+    
+    
+6. DKMS
+
+    - sudo apt-get install build-essential dkms
+    
+    - sudo dkms add -m 8812au -v 4.2.2
+    
+    - sudo dkms build -m 8812au -v 4.2.2
+    
+    - sudo dkms install -m 8812au -v 4.2.2    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 4. copy the driver and use it
 
