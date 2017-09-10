@@ -281,7 +281,7 @@ sudo iptables -t nat -F
 
     - sudo cp /usr/local/bin/hostapd /usr/sbin/hostapd
 
-    - sudo cp /usr/local/bin/hostapd_cli /usr/sbin/hostapd_cl
+    - sudo cp /usr/local/bin/hostapd_cli /usr/sbin/hostapd_cli
     
     - reboot
     
