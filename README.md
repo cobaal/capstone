@@ -171,7 +171,7 @@ gateway 192.168.0.1
 
     - dhcp-range=192.24.1.50,192.24.1.150,12h #Assign IP addresses between 192.24.1.50 and 192.24.1.150 with a 12 hour lease time
     
-    - interface=wlan0
+    - interface=wlan0
     
     - interface=wlan2
     
