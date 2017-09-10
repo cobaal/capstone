@@ -63,13 +63,13 @@ gateway 192.168.0.1
   
    - iface wlan0 inet static  
 
-   - address 172.24.1.1
+   - address 192.24.1.1
     
    - netmask 255.255.255.0
     
-   - network 172.24.1.0
+   - network 192.24.1.0
     
-   - broadcast 172.24.1.255
+   - broadcast 192.24.1.255
     
    - #wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 
@@ -153,7 +153,7 @@ gateway 192.168.0.1
 
     - interface=wlan0      #Use interface wlan0 
    
-    - listen-address=172.24.1.1 #Explicitly specify the address to listen on  
+    - listen-address=192.24.1.1 #Explicitly specify the address to listen on  
 
     - bind-interfaces      #Bind to the interface to make sure we aren't sending things elsewhere 
 
@@ -163,7 +163,7 @@ gateway 192.168.0.1
 
     - bogus-priv           #Never forward addresses in the non-routed address spaces.  
 
-    - dhcp-range=172.24.1.50,172.24.1.150,12h #Assign IP addresses between 172.24.1.50 and 172.24.1.150 with a 12 hour lease time
+    - dhcp-range=192.24.1.50,192.24.1.150,12h #Assign IP addresses between 192.24.1.50 and 192.24.1.150 with a 12 hour lease time
 
 12. sudo nano /etc/sysctl.conf
 
