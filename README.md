@@ -90,7 +90,7 @@ gateway 192.168.0.1
    - #Use the nl80211 driver with the brcmfmac driver
    
    - driver=rtl871xdrv #driver=nl80211
-
+   
    - #This is the name of the network
    
    - ssid=Pi3-AP
