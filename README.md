@@ -170,6 +170,14 @@ gateway 192.168.0.1
     - bogus-priv           #Never forward addresses in the non-routed address spaces.  
 
     - dhcp-range=192.24.1.50,192.24.1.150,12h #Assign IP addresses between 192.24.1.50 and 192.24.1.150 with a 12 hour lease time
+    
+    - interface=wlan0
+    
+    - interface=wlan2
+    
+    - dhcp-range=wlan0,192.24.1.50,192.24.1.149,12h
+
+    - dhcp-range=wlan2,192.24.1.150,192.24.1.249,12h
 
 12. sudo nano /etc/sysctl.conf
 
