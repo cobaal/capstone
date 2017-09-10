@@ -328,3 +328,9 @@ sudo iptables -t nat -F
 https://www.max2play.com/en/forums/topic/howto-raspberry-pi-3-realtek-802-11ac-rtl8812au/
 
 https://layereight.de/raspberry-pi/2016/08/25/raspbian-rtl8812au.html
+
+# bridge
+
+1. sudo aptitude install bridge-utils
+
+2. 
