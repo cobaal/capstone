@@ -122,107 +122,162 @@ sudo nano /etc/udev/rules.d/10-network.rules
                network 192.24.1.0
                broadcast 192.24.1.255
 
-4. sudo service dhcpcd restart
+        allow-hotplug wlan2
+               iface wlan0 inet static  
+               address 192.24.2.1
+               netmask 255.255.255.0
+               network 192.24.2.0
+               broadcast 192.24.2.255
+               
+3. sudo service dhcpcd restart
 
-5. sudo ifdown wlan0; sudo ifup wlan0
+4. sudo ifdown wlan0; sudo ifup wlan0
 
-6. sudo nano /etc/hostapd/hostapd.conf
+6. sudo nano /etc/hostapd/hostapd_2Ghz.conf
 
-   - #This is the name of the WiFi interface we configured above
+        #This is the name of the WiFi interface we configured above
+        interface=wlan0
+
+        #Use the nl80211 driver with the brcmfmac driver
+        #driver=rtl871xdrv 
+        driver=nl80211
    
-   - interface=wlan0
-
-   - #Use the nl80211 driver with the brcmfmac driver
+        #This is the name of the network
    
-   - driver=rtl871xdrv 
+        ssid=Router1 2.4GHz
+
+        #Use the 2.4GHz band
+        hw_mode=g
+
+        #Use channel 1
+        channel=1
+
+        #Enable 802.11n
+        ieee80211n=1
+
+        #Enable WMM
+        wmm_enabled=1
+
+        #Enable 40MHz channels with 20ns guard interval
+        ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40]
+
+        #Accept all MAC addresses
+        macaddr_acl=0
+
+        #Use WPA authentication
+        auth_algs=1
+
+        #Require clients to know the network name
+        ignore_broadcast_ssid=0
+
+        #Use WPA2
+        wpa=2
+
+        #Use a pre-shared key
+        wpa_key_mgmt=WPA-PSK
+
+        #The network passphrase
+        wpa_passphrase=raspberry
+
+        #Use AES, instead of TKIP
+        rsn_pairwise=CCMP
    
-   - #driver=nl80211
+7. sudo /usr/sbin/hostapd /etc/hostapd/hostapd_2Ghz.conf
+
+8. Ctrl+C
+
+6. sudo nano /etc/hostapd/hostapd_5Ghz.conf
+
+        #This is the name of the WiFi interface we configured above
+        interface=wlan2
+
+        #Use the nl80211 driver with the brcmfmac driver
+        driver=rtl871xdrv 
+        #driver=nl80211
    
-   - #This is the name of the network
+        #This is the name of the network
    
-   - ssid=Pi3-AP
+        ssid=Router1 5GHz
 
-   - #Use the 2.4GHz band
+        #Use the 5GHz band
+        hw_mode=a
+
+        #Use channel 40
+        channel=40
+
+        #Enable 802.11n
+        ieee80211n=1
+
+        #Enable WMM
+        wmm_enabled=1
+
+        #Enable 40MHz channels with 20ns guard interval
+        ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40]
+
+        #Accept all MAC addresses
+        macaddr_acl=0
+
+        #Use WPA authentication
+        auth_algs=1
+
+        #Require clients to know the network name
+        ignore_broadcast_ssid=0
+
+        #Use WPA2
+        wpa=2
+
+        #Use a pre-shared key
+        wpa_key_mgmt=WPA-PSK
+
+        #The network passphrase
+        wpa_passphrase=raspberry
+
+        #Use AES, instead of TKIP
+        rsn_pairwise=CCMP
    
-   - hw_mode=g
-
-   - #Use channel 6
-   
-   - channel=6
-
-   - #Enable 802.11n
-   
-   - ieee80211n=1
-
-   - #Enable WMM
-   
-   - wmm_enabled=1
-
-   - #Enable 40MHz channels with 20ns guard interval
-   
-   - ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40]
-
-   - #Accept all MAC addresses
-   
-   - macaddr_acl=0
-
-   - #Use WPA authentication
-
-   - auth_algs=1
-
-   - #Require clients to know the network name
-
-   - ignore_broadcast_ssid=0
-
-   - #Use WPA2
-
-   - wpa=2
-
-   - #Use a pre-shared key
-
-   - wpa_key_mgmt=WPA-PSK
-
-   - #The network passphrase
-
-   - wpa_passphrase=raspberry
-
-   - #Use AES, instead of TKIP
-
-   - rsn_pairwise=CCMP
-   
-7. sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf
+7. sudo /usr/sbin/hostapd /etc/hostapd/hostapd_5Ghz.conf
 
 8. Ctrl+C
 
 9. sudo nano /etc/default/hostapd
 
-   - DAEMON_CONF="/etc/hostapd/hostapd.conf"
+        DAEMON_CONF="/etc/hostapd/hostapd_2Ghz.conf /etc/hostapd/hostapd_5Ghz.conf"
    
 10. sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig  
 
 11. sudo nano /etc/dnsmasq.conf    
 
-    - interface=wlan0      #Use interface wlan0 
+- TWO AP
+
+        interface=wlan0
+        interface=wlan2
+    
+        dhcp-range=wlan0,192.24.1.50,192.24.1.149,12h
+        dhcp-range=wlan2,192.24.2.50,192.24.2.149,12h
+
+- ONE AP
+
+        #Use interface wlan0 
+        interface=wlan0      
    
-    - listen-address=192.24.1.1 #Explicitly specify the address to listen on  
+        #Explicitly specify the address to listen on
+        listen-address=192.24.1.1   
 
-    - bind-interfaces      #Bind to the interface to make sure we aren't sending things elsewhere 
+        #Bind to the interface to make sure we aren't sending things elsewhere
+        bind-interfaces      
 
-    - server=8.8.8.8       #Forward DNS requests to Google DNS  
+        #Forward DNS requests to Google DNS 
+        server=8.8.8.8        
 
-    - domain-needed        #Don't forward short names  
+        #Don't forward short names
+        domain-needed          
 
-    - bogus-priv           #Never forward addresses in the non-routed address spaces.  
+        #Never forward addresses in the non-routed address spaces. 
+        bogus-priv            
 
-    - dhcp-range=192.24.1.50,192.24.1.150,12h #Assign IP addresses between 192.24.1.50 and 192.24.1.150 with a 12 hour lease time
+        dhcp-range=192.24.1.50,192.24.1.150,12h #Assign IP addresses between 192.24.1.50 and 192.24.1.150 with a 12 hour lease time
     
-    - interface=wlan0
-    
-    - interface=wlan2
-    
-    - dhcp-range=wlan0,192.24.1.50,192.24.1.149,12h
-
-    - dhcp-range=wlan2,192.24.1.150,192.24.1.249,12h
+        
 
 12. sudo nano /etc/sysctl.conf
 
