@@ -286,7 +286,7 @@ sudo nano /etc/udev/rules.d/10-network.rules
 
 16. sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
 
-17. MASQUERADE
+# MASQUERADE
 
 - ONE AP
 
@@ -294,7 +294,7 @@ sudo nano /etc/udev/rules.d/10-network.rules
         sudo iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
         sudo iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
 
--TWO AP
+- TWO AP
 
         sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE  
         sudo iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
