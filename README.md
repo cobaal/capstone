@@ -186,7 +186,7 @@ sudo nano /etc/udev/rules.d/10-network.rules
 
 8. Ctrl+C
 
-6. sudo nano /etc/hostapd/hostapd_5Ghz.conf
+9. sudo nano /etc/hostapd/hostapd_5Ghz.conf
 
         #This is the name of the WiFi interface we configured above
         interface=wlan2
@@ -235,17 +235,17 @@ sudo nano /etc/udev/rules.d/10-network.rules
         #Use AES, instead of TKIP
         rsn_pairwise=CCMP
    
-7. sudo /usr/sbin/hostapd /etc/hostapd/hostapd_5Ghz.conf
+10. sudo /usr/sbin/hostapd /etc/hostapd/hostapd_5Ghz.conf
 
-8. Ctrl+C
+11. Ctrl+C
 
-9. sudo nano /etc/default/hostapd
+12. sudo nano /etc/default/hostapd
 
         DAEMON_CONF="/etc/hostapd/hostapd_2Ghz.conf /etc/hostapd/hostapd_5Ghz.conf"
    
-10. sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig  
+13. sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig  
 
-11. sudo nano /etc/dnsmasq.conf    
+14. sudo nano /etc/dnsmasq.conf    
 
 - TWO AP
 
@@ -275,92 +275,51 @@ sudo nano /etc/udev/rules.d/10-network.rules
         #Never forward addresses in the non-routed address spaces. 
         bogus-priv            
 
-        dhcp-range=192.24.1.50,192.24.1.150,12h #Assign IP addresses between 192.24.1.50 and 192.24.1.150 with a 12 hour lease time
-    
-        
+        #Assign IP addresses between 192.24.1.50 and 192.24.1.150 with a 12 hour lease time
+        dhcp-range=192.24.1.50,192.24.1.150,12h 
 
-12. sudo nano /etc/sysctl.conf
+15. sudo nano /etc/sysctl.conf
 
     - remove the #from the beginning of the line containing net.ipv4.ip_forward=1
 
-13. sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+16. sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
 
-14. sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE  
+17. MASQUERADE
 
-15. sudo iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
+- ONE AP
 
-16. sudo iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
+        sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE  
+        sudo iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
+        sudo iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
 
-17. sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
+-TWO AP
 
-18. sudo nano /etc/rc.local
+        sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE  
+        sudo iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
+        sudo iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
 
-     - iptables-restore < /etc/iptables.ipv4.nat  
+        sudo iptables -t nat -A POSTROUTING -o wlan3 -j MASQUERADE  
+        sudo iptables -A FORWARD -i wlan3 -o wlan2 -m state --state RELATED,ESTABLISHED -j ACCEPT  
+        sudo iptables -A FORWARD -i wlan2 -o wlan3 -j ACCEPT
+
+18. sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
+
+19. sudo nano /etc/rc.local
+
+        iptables-restore < /etc/iptables.ipv4.nat  
      
-19. sudo service hostapd start  
+20. sudo service hostapd start  
 
-20. sudo service dnsmasq start 
+21. sudo service dnsmasq start 
 
-21. sudo reboot
+22. sudo reboot
 
-# ip forwarding
+# ip forwarding (NOT USES)
 
-sudo iptables -A PREROUTING -t nat -p tcp -d [receive IP] --dport [receive port] -j DNAT --to [next IP:next port]
-
-sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
-
-sudo iptables -t nat -F 
-
-
-    
-
-    
-    
-6. DKMS
-
-    - sudo apt-get install build-essential dkms
-    
-    - sudo dkms add -m 8812au -v 4.2.2
-    
-    - sudo dkms build -m 8812au -v 4.2.2
-    
-    - sudo dkms install -m 8812au -v 4.2.2    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-4. copy the driver and use it
-
-    - sudo insmod 8812au.ko
-
-    - sudo cp 8812au.ko /lib/modules/$(uname -r)/kernel/drivers/net/wireless
-
-    - sudo depmod
-
-
-5. disable the integrated wifi chip
-
-    - sudo nano /etc/modprobe.d/raspi-blacklist.conf
-
-    - (add) blacklist brcmfmac
-
-    - (add) blacklist brcmutil
-
-
-6. reboot
+        sudo iptables -A PREROUTING -t nat -p tcp -d [receive IP] --dport [receive port] -j DNAT --to [next IP:next port]
+        sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
+        sudo iptables -t nat -F 
 
 https://www.max2play.com/en/forums/topic/howto-raspberry-pi-3-realtek-802-11ac-rtl8812au/
 
 https://layereight.de/raspberry-pi/2016/08/25/raspbian-rtl8812au.html
-
-# bridge
-
-1. sudo aptitude install bridge-utils
-
-2. 
