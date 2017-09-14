@@ -83,8 +83,41 @@ sudo nano /etc/udev/rules.d/10-network.rules
     
         reboot
 
+# PATCH HOSTAPD FOR RTL8812AU DRIVER (WAY 1)
 
+1. Download 2.6.x version from here : http://w1.fi/hostapd/
 
+2. rtl pactch file : https://github.com/pritambaral/hostapd-rtl871xdrv/archive/master.zip
+    
+3. unzip hostapd-2.6.zip and hostapd-rtl871xdrv-master.zip
+    
+        sudo cp hostapd-rtl871xdrv-master/* hostapd-2.6/
+    
+        sudo cp hostapd-rtl871xdrv-master/.c* hostapd-2.6/
+    
+        cd hostapd-2.6
+    
+        patch -Np1 -i rtlxdrv.patch
+    
+        cp .config ./hostapd/
+
+        cd hostapd
+    
+        make
+    
+        sudo make install
+    
+        sudo cp /usr/sbin/hostapd  /usr/sbin/hostapd-old
+    
+        sudo cp /usr/sbin/hostapd_cli /usr/sbin/hostapd_cli-old
+
+        sudo cp /usr/local/bin/hostapd /usr/sbin/hostapd
+
+        sudo cp /usr/local/bin/hostapd_cli /usr/sbin/hostapd_cli
+    
+        reboot
+
+# PATCH HOSTAPD FOR RTL8812AU DRIVER (WAY 2)
 
 # AP mode
 
@@ -244,39 +277,7 @@ sudo iptables -t nat -F
 
 
     
-5. pactch hostapd
 
-    - Download 2.6.x version from here : http://w1.fi/hostapd/
-
-    - rtl pactch file : https://github.com/pritambaral/hostapd-rtl871xdrv/archive/master.zip
-    
-    - unzip hostapd-2.6.zip and hostapd-rtl871xdrv-master.zip
-    
-    - sudo cp hostapd-rtl871xdrv-master/* hostapd-2.6/
-    
-    - sudo cp hostapd-rtl871xdrv-master/.c* hostapd-2.6/
-    
-    - cd hostapd-2.6
-    
-    - patch -Np1 -i rtlxdrv.patch
-    
-    - cp .config ./hostapd/
-
-    - cd hostapd
-    
-    - make
-    
-    - sudo make install
-    
-    - sudo cp /usr/sbin/hostapd  /usr/sbin/hostapd-old
-    
-    - sudo cp /usr/sbin/hostapd_cli /usr/sbin/hostapd_cli-old
-
-    - sudo cp /usr/local/bin/hostapd /usr/sbin/hostapd
-
-    - sudo cp /usr/local/bin/hostapd_cli /usr/sbin/hostapd_cli
-    
-    - reboot
     
     
 6. DKMS
