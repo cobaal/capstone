@@ -91,20 +91,20 @@ sudo nano /etc/udev/rules.d/10-network.rules
 
 # PATCH HOSTAPD FOR RTL8812AU DRIVER (WAY 2)
 
-       sudo git clone https://github.com/lostincynicism/hostapd-rtl8188.git
-       sudo apt-get install libnl-3-dev
-       sudo apt-get install libssl-dev
-       sudo apt-get install libnl-genl-3-dev
+    sudo git clone https://github.com/lostincynicism/hostapd-rtl8188.git
+    sudo apt-get install libnl-3-dev
+    sudo apt-get install libssl-dev
+    sudo apt-get install libnl-genl-3-dev
        
-       cd RTL8188-hostapd/hostapd
-       make
-       make install
+    cd RTL8188-hostapd/hostapd
+    make
+    make install
         
-       sudo cp /usr/sbin/hostapd  /usr/sbin/hostapd-old
-       sudo cp /usr/sbin/hostapd_cli /usr/sbin/hostapd_cli-old
-       sudo cp /usr/local/bin/hostapd /usr/sbin/hostapd
-       sudo cp /usr/local/bin/hostapd_cli /usr/sbin/hostapd_cli
-       reboot
+    sudo cp /usr/sbin/hostapd  /usr/sbin/hostapd-old
+    sudo cp /usr/sbin/hostapd_cli /usr/sbin/hostapd_cli-old
+    sudo cp /usr/local/bin/hostapd /usr/sbin/hostapd
+    sudo cp /usr/local/bin/hostapd_cli /usr/sbin/hostapd_cli
+    reboot
 
 # AP mode
 
