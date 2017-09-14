@@ -14,19 +14,14 @@
 4. mouse cursor slow problem
 
         sudo nano /boot/cmdline.txt
-
         add 'usbhid.mousepoll=0'
 
 5. pi 3.5inch display install 
 
         http://bbangpan.tistory.com/82
-
         /home/pi/Downloads 
-
         cd LCD-show 
-
         hdmi : sudo ./LCD-hdmi
-
         display : sudo ./LCD35-show
 
 # FIX WLAN 
@@ -34,13 +29,9 @@
 sudo nano /etc/udev/rules.d/10-network.rules
 
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="aa:bb:cc:dd:ee:ff", NAME="wlan0"   # 2.4 AP
-
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan1"   # 2.4 STATION
-
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan2"   # 5 AP
-
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan3"   # 5 STATION
-
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan4"   # wlan built in the pi 
 
 # INSTALL DNSMASQ & HOSTAPD
@@ -52,35 +43,26 @@ sudo nano /etc/udev/rules.d/10-network.rules
 1. install necessary software
 
         sudo apt-get install bc git
-
         sudo apt-get install libncurses5-dev
 
 2. download rpi kernel source. takes some minutes
 
         sudo wget https://raw.githubusercontent.com/notro/rpi-source/master/rpi-source -O /usr/bin/rpi-source
-
         sudo chmod 755 /usr/bin/rpi-source
-
         rpi-source -q --tag-update
-
         rpi-source
 
 3. download the rtl8812au kernel driver and complie it. takes some minutes
 
         git clone https://github.com/gnab/rtl8812au.git
-
         cd rtl8812au
-
+        
         sed -i 's/CONFIG_PLATFORM_I386_PC = y/CONFIG_PLATFORM_I386_PC = n/g' Makefile
-
         sed -i 's/CONFIG_PLATFORM_ARM_RPI = n/CONFIG_PLATFORM_ARM_RPI = y/g' Makefile
-
+        
         make
-    
         sudo make install
-    
         sudo modprobe 8812au
-    
         reboot
 
 # PATCH HOSTAPD FOR RTL8812AU DRIVER (WAY 1)
@@ -92,55 +74,36 @@ sudo nano /etc/udev/rules.d/10-network.rules
 3. unzip hostapd-2.6.zip and hostapd-rtl871xdrv-master.zip
     
         sudo cp hostapd-rtl871xdrv-master/* hostapd-2.6/
-    
         sudo cp hostapd-rtl871xdrv-master/.c* hostapd-2.6/
-    
         cd hostapd-2.6
-    
+        
         patch -Np1 -i rtlxdrv.patch
-    
         cp .config ./hostapd/
-
         cd hostapd
-    
         make
-    
         sudo make install
-    
+        
         sudo cp /usr/sbin/hostapd  /usr/sbin/hostapd-old
-    
         sudo cp /usr/sbin/hostapd_cli /usr/sbin/hostapd_cli-old
-
         sudo cp /usr/local/bin/hostapd /usr/sbin/hostapd
-
         sudo cp /usr/local/bin/hostapd_cli /usr/sbin/hostapd_cli
-    
         reboot
 
 # PATCH HOSTAPD FOR RTL8812AU DRIVER (WAY 2)
 
         sudo git clone https://github.com/lostincynicism/hostapd-rtl8188.git
-        
         sudo apt-get install libnl-3-dev
-        
         sudo apt-get install libssl-dev
-        
         sudo apt-get install libnl-genl-3-dev
         
         cd RTL8188-hostapd/hostapd
-        
         make
-        
         make install
         
         sudo cp /usr/sbin/hostapd  /usr/sbin/hostapd-old
-    
         sudo cp /usr/sbin/hostapd_cli /usr/sbin/hostapd_cli-old
-
         sudo cp /usr/local/bin/hostapd /usr/sbin/hostapd
-
         sudo cp /usr/local/bin/hostapd_cli /usr/sbin/hostapd_cli
-    
         reboot
 
 # AP mode
@@ -148,17 +111,16 @@ sudo nano /etc/udev/rules.d/10-network.rules
 1. sudo nano /etc/dhcpcd.conf
 
         denyinterfaces wlan0
-   
         denyinterfaces wlan2        
 
 2. sudo nano /etc/network/interfaces
 
         allow-hotplug wlan0 
-        iface wlan0 inet static  
-        address 192.24.1.1
-        netmask 255.255.255.0
-        network 192.24.1.0
-        broadcast 192.24.1.255
+               iface wlan0 inet static  
+               address 192.24.1.1
+               netmask 255.255.255.0
+               network 192.24.1.0
+               broadcast 192.24.1.255
 
 4. sudo service dhcpcd restart
 
