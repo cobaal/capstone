@@ -96,9 +96,9 @@ sudo nano /etc/udev/rules.d/10-network.rules
     sudo apt-get install libssl-dev
     sudo apt-get install libnl-genl-3-dev
        
-    cd RTL8188-hostapd/hostapd
-    make
-    make install
+    cd hostapd-rtl8188/hostapd
+    sudo make
+    sudo make install
         
     sudo cp /usr/sbin/hostapd  /usr/sbin/hostapd-old
     sudo cp /usr/sbin/hostapd_cli /usr/sbin/hostapd_cli-old
