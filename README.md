@@ -12,21 +12,22 @@
         asia > seoul
 
 4. mouse cursor slow problem
-sudo nano /boot/cmdline.txt
-add 'usbhid.mousepoll=0'
+
+        sudo nano /boot/cmdline.txt
+
+        add 'usbhid.mousepoll=0'
 
 5. pi 3.5inch display install 
 
-    - http://bbangpan.tistory.com/82
+        http://bbangpan.tistory.com/82
 
+        /home/pi/Downloads 
 
-    - /home/pi/Downloads 
+        cd LCD-show 
 
-    - cd LCD-show 
+        hdmi : sudo ./LCD-hdmi
 
-    - hdmi : sudo ./LCD-hdmi
-
-    - display : sudo ./LCD35-show
+        display : sudo ./LCD35-show
 
 # FIX WLAN 
 
