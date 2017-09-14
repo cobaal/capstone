@@ -111,19 +111,19 @@ sudo nano /etc/udev/rules.d/10-network.rules
 1. sudo nano /etc/dhcpcd.conf
 
        denyinterfaces wlan0
-       denyinterfaces wlan2        
+       denyinterfaces wlan2
 
 2. sudo nano /etc/network/interfaces
 
-       allow-hotplug wlan0 
-       iface wlan0 inet static  
+       allow-hotplug wlan0
+       iface wlan0 inet static
               address 192.24.1.1
               netmask 255.255.255.0
               network 192.24.1.0
               broadcast 192.24.1.255
 
        allow-hotplug wlan2
-       iface wlan2 inet static  
+       iface wlan2 inet static
               address 192.24.2.1
               netmask 255.255.255.0
               network 192.24.2.0
@@ -141,7 +141,7 @@ sudo nano /etc/udev/rules.d/10-network.rules
        interface=wlan0
 
        #Use the nl80211 driver with the brcmfmac driver
-       #driver=rtl871xdrv 
+       #driver=rtl871xdrv
        driver=nl80211
    
        #This is the name of the network
@@ -193,7 +193,7 @@ sudo nano /etc/udev/rules.d/10-network.rules
        interface=wlan2
 
        #Use the nl80211 driver with the brcmfmac driver
-       driver=rtl871xdrv 
+       driver=rtl871xdrv
        #driver=nl80211
    
        #This is the name of the network
