@@ -119,27 +119,46 @@ sudo nano /etc/udev/rules.d/10-network.rules
 
 # PATCH HOSTAPD FOR RTL8812AU DRIVER (WAY 2)
 
+        sudo git clone https://github.com/lostincynicism/hostapd-rtl8188.git
+        
+        sudo apt-get install libnl-3-dev
+        
+        sudo apt-get install libssl-dev
+        
+        sudo apt-get install libnl-genl-3-dev
+        
+        cd RTL8188-hostapd/hostapd
+        
+        make
+        
+        make install
+        
+        sudo cp /usr/sbin/hostapd  /usr/sbin/hostapd-old
+    
+        sudo cp /usr/sbin/hostapd_cli /usr/sbin/hostapd_cli-old
+
+        sudo cp /usr/local/bin/hostapd /usr/sbin/hostapd
+
+        sudo cp /usr/local/bin/hostapd_cli /usr/sbin/hostapd_cli
+    
+        reboot
+
 # AP mode
 
-2. sudo nano /etc/dhcpcd.conf
+1. sudo nano /etc/dhcpcd.conf
 
-   - denyinterfaces wlan0
+        denyinterfaces wlan0
+   
+        denyinterfaces wlan2        
 
-3. sudo nano /etc/network/interfaces
+2. sudo nano /etc/network/interfaces
 
-   - allow-hotplug wlan0  
-  
-   - iface wlan0 inet static  
-
-   - address 192.24.1.1
-    
-   - netmask 255.255.255.0
-    
-   - network 192.24.1.0
-    
-   - broadcast 192.24.1.255
-    
-   - #wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+        allow-hotplug wlan0 
+        iface wlan0 inet static  
+        address 192.24.1.1
+        netmask 255.255.255.0
+        network 192.24.1.0
+        broadcast 192.24.1.255
 
 4. sudo service dhcpcd restart
 
