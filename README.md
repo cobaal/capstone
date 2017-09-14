@@ -133,6 +133,8 @@ sudo nano /etc/udev/rules.d/10-network.rules
 
 4. sudo ifdown wlan0; sudo ifup wlan0
 
+   sudo ifdown wlan2; sudo ifup wlan2
+
 6. sudo nano /etc/hostapd/hostapd_2Ghz.conf
 
         #This is the name of the WiFi interface we configured above
