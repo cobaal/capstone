@@ -43,22 +43,50 @@ sudo nano /etc/udev/rules.d/10-network.rules
 
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan4"   # wlan built in the pi 
 
-# Set static IP
+# INSTALL DNSMASQ & HOSTAPD
 
-allow-hotplug wlan0
+        sudo apt-get install dnsmasq hostapd
 
-iface wlan0 inet static
+# INSTALL realtek RTL8812AU
 
-wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+1. install necessary software
+
+        sudo apt-get install bc git
+
+        sudo apt-get install libncurses5-dev
+
+2. download rpi kernel source. takes some minutes
+
+        sudo wget https://raw.githubusercontent.com/notro/rpi-source/master/rpi-source -O /usr/bin/rpi-source
+
+        sudo chmod 755 /usr/bin/rpi-source
+
+        rpi-source -q --tag-update
+
+        rpi-source
+
+3. download the rtl8812au kernel driver and complie it. takes some minutes
+
+        git clone https://github.com/gnab/rtl8812au.git
+
+        cd rtl8812au
+
+        sed -i 's/CONFIG_PLATFORM_I386_PC = y/CONFIG_PLATFORM_I386_PC = n/g' Makefile
+
+        sed -i 's/CONFIG_PLATFORM_ARM_RPI = n/CONFIG_PLATFORM_ARM_RPI = y/g' Makefile
+
+        make
     
-address 192.168.0.174
+        sudo make install
+    
+        sudo modprobe 8812au
+    
+        reboot
 
-netmask 255.255.255.0
 
-gateway 192.168.0.1
+
 
 # AP mode
-1. sudo apt-get install dnsmasq hostapd
 
 2. sudo nano /etc/dhcpcd.conf
 
@@ -214,45 +242,7 @@ sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
 sudo iptables -t nat -F 
 
-# realtek RTL8812AU
 
-1. install necessary software
-
-    - sudo apt-get update
-
-    - sudo apt-get install bc git
-
-    - sudo apt-get install libncurses5-dev
-
-
-2. download rpi kernel source. takes some minutes
-
-    - sudo wget https://raw.githubusercontent.com/notro/rpi-source/master/rpi-source -O /usr/bin/rpi-source
-
-    - sudo chmod 755 /usr/bin/rpi-source
-
-    - rpi-source -q --tag-update
-
-    - rpi-source
-
-
-3. download the rtl8812au kernel driver and complie it. takes some minutes
-
-    - git clone https://github.com/gnab/rtl8812au.git
-
-    - cd rtl8812au
-
-    - sed -i 's/CONFIG_PLATFORM_I386_PC = y/CONFIG_PLATFORM_I386_PC = n/g' Makefile
-
-    - sed -i 's/CONFIG_PLATFORM_ARM_RPI = n/CONFIG_PLATFORM_ARM_RPI = y/g' Makefile
-
-    - make
-    
-    - sudo make install
-    
-    - sudo modprobe 8812au
-    
-    - reboot
     
 5. pactch hostapd
 
