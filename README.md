@@ -258,23 +258,23 @@ sudo nano /etc/udev/rules.d/10-network.rules
 
 - ONE AP
 
-      #Use interface wlan0 
-      interface=wlan0      
+      #Use interface wlan0
+      interface=wlan0
    
       #Explicitly specify the address to listen on
-      listen-address=192.24.1.1   
+      listen-address=192.24.1.1
 
       #Bind to the interface to make sure we aren't sending things elsewhere
-      bind-interfaces      
+      bind-interfaces
 
       #Forward DNS requests to Google DNS 
-      server=8.8.8.8        
+      server=8.8.8.8
 
       #Don't forward short names
-      domain-needed          
+      domain-needed
 
       #Never forward addresses in the non-routed address spaces. 
-      bogus-priv            
+      bogus-priv
 
       #Assign IP addresses between 192.24.1.50 and 192.24.1.150 with a 12 hour lease time
       dhcp-range=192.24.1.50,192.24.1.150,12h 
@@ -289,17 +289,17 @@ sudo nano /etc/udev/rules.d/10-network.rules
 
 - ONE AP
 
-      sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE  
+      sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
       sudo iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
       sudo iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
 
 - TWO AP
 
-      sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE  
+      sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
       sudo iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
       sudo iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
 
-      sudo iptables -t nat -A POSTROUTING -o wlan3 -j MASQUERADE  
+      sudo iptables -t nat -A POSTROUTING -o wlan3 -j MASQUERADE
       sudo iptables -A FORWARD -i wlan3 -o wlan2 -m state --state RELATED,ESTABLISHED -j ACCEPT  
       sudo iptables -A FORWARD -i wlan2 -o wlan3 -j ACCEPT
 
@@ -307,7 +307,7 @@ sudo nano /etc/udev/rules.d/10-network.rules
 
 19. sudo nano /etc/rc.local
 
-        iptables-restore < /etc/iptables.ipv4.nat  
+        iptables-restore < /etc/iptables.ipv4.nat
      
 20. sudo service hostapd start  
 
@@ -319,7 +319,7 @@ sudo nano /etc/udev/rules.d/10-network.rules
 
     sudo iptables -A PREROUTING -t nat -p tcp -d [receive IP] --dport [receive port] -j DNAT --to [next IP:next port]
     sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
-    sudo iptables -t nat -F 
+    sudo iptables -t nat -F
 
 https://www.max2play.com/en/forums/topic/howto-raspberry-pi-3-realtek-802-11ac-rtl8812au/
 
