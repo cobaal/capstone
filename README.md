@@ -1,13 +1,15 @@
 # INSTALL
 1. korean font
 
-    sudo apt-get install ibus ibus-hangul ttf-unfonts-core
+        sudo apt-get install ibus ibus-hangul ttf-unfonts-core
 
 2. keyboard layout 
-    sudo raspi-config > 105 layout
+
+        sudo raspi-config > 105 layout
 
 3. locale
-asia > seoul
+
+        asia > seoul
 
 4. mouse cursor slow problem
 sudo nano /boot/cmdline.txt
