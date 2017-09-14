@@ -116,14 +116,14 @@ sudo nano /etc/udev/rules.d/10-network.rules
 2. sudo nano /etc/network/interfaces
 
        allow-hotplug wlan0 
-              iface wlan0 inet static  
+       iface wlan0 inet static  
               address 192.24.1.1
               netmask 255.255.255.0
               network 192.24.1.0
               broadcast 192.24.1.255
 
        allow-hotplug wlan2
-              iface wlan0 inet static  
+       iface wlan2 inet static  
               address 192.24.2.1
               netmask 255.255.255.0
               network 192.24.2.0
