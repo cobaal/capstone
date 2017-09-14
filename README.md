@@ -1,10 +1,10 @@
-# install 
+# INSTALL
 1. korean font
 
-    - sudo apt-get install ibus ibus-hangul ttf-unfonts-core
+    sudo apt-get install ibus ibus-hangul ttf-unfonts-core
 
 2. keyboard layout 
-    - sudo raspi-config > 105 layout
+    sudo raspi-config > 105 layout
 
 3. locale
 asia > seoul
@@ -26,19 +26,19 @@ add 'usbhid.mousepoll=0'
 
     - display : sudo ./LCD35-show
 
-# wlan 
+# FIX WLAN 
 
 sudo nano /etc/udev/rules.d/10-network.rules
 
-SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="aa:bb:cc:dd:ee:ff", NAME="wlan0"   # 2.4 AP
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="aa:bb:cc:dd:ee:ff", NAME="wlan0"   # 2.4 AP
 
-SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan1"   # 2.4 STATION
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan1"   # 2.4 STATION
 
-SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan2"   # 5 AP
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan2"   # 5 AP
 
-SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan3"   # 5 STATION
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan3"   # 5 STATION
 
-SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan4"   # wlan built in the pi 
+    SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="ff:ee:dd:cc:bb:aa", NAME="wlan4"   # wlan built in the pi 
 
 # Set static IP
 
