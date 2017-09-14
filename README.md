@@ -89,7 +89,7 @@ sudo nano /etc/udev/rules.d/10-network.rules
        sudo cp /usr/local/bin/hostapd_cli /usr/sbin/hostapd_cli
        reboot
 
-# PATCH HOSTAPD FOR RTL8812AU DRIVER (WAY 2 from 정혜)
+# PATCH HOSTAPD FOR RTL8812AU DRIVER (WAY 2 feat.정혜)
 
     sudo git clone https://github.com/lostincynicism/hostapd-rtl8188.git
     sudo apt-get install libnl-3-dev
